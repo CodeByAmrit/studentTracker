@@ -1,7 +1,6 @@
 const express = require('express')
-const route = require('./routes/route')
+const router = require('./routes/route')
 const cookieParser = require('cookie-parser')
-const { restrictToLogin, singout } = require('./middlewares/auth')
 
 const app = express()
 const port = 10000
@@ -15,18 +14,6 @@ app.use(cookieParser())
 
 app.set('view engine', 'ejs')
 
-// app.get('/', restrictToLogin, route)
-// app.get('/user/profile', restrictToLogin, route)
-// app.get('/logout', singout, route)
-// app.get('/users', route)
-// app.get('/student/:sid', route)
-// app.get('/users/:userId', route)
-// app.post('/users', route)
-// app.post('/', restrictToLogin, route)
-// app.post('/users/login', route)
-// app.post('/upload', restrictToLogin, route)
-// app.post('/student/:sid', route)
-// app.post('/student/delete/:sid', route)
 app.get('/edit-student', (req, res) => {
   res.render('edit-student')
 })
@@ -45,6 +32,14 @@ app.get('/syllabus', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register')
 })
+
+// api CRUD operations
+
+app.get('/api/students', router)
+app.get('/api/student/:id', router)
+app.post('/api/student/:id', router)
+app.put('/api/student/:id', router)
+app.delete('/api/student/:id', router)
 
 app.listen(port, ip, err => {
   if (err) {
