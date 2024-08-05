@@ -11,7 +11,8 @@
                             Student List
                         </h1>
 
-                        <nav class="navbar bg-body-tertiary">
+                        <nav class="navbar bg-body-tertiary"
+                            style="background-color: rgba(240, 248, 255, 0) !important;">
                             <div class="container-fluid">
                                 <a class="navbar-brand"></a>
                                 <form class="d-flex" role="search">
@@ -29,28 +30,55 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Father Name</th>
+
+                                            <th scope="col">SRN NO</th>
+                                            <th scope="col">PEN No</th>
+                                            <th scope="col">Admission</th>
+                                            <th scope="col">Class</th>
+                                            <th scope="col">Sec</th>
+                                            <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% let count=1 %>
-                                            <% while (count<=100) { %>
+                                            <% studentlist.forEach(student=>{ %>
                                                 <tr>
                                                     <th scope="row">
                                                         <%= count %>
                                                     </th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
-                                                    <td><a href="edit/<%= count %>"><img src="/image/edit.png"
-                                                                alt="edit" width="20px"></a></a>
+
+                                                    <td>
+                                                        <%=student.full_name.toUpperCase() %>
+                                                    </td>
+                                                    <td>
+                                                        <%=student.father_name.toUpperCase() %>
+                                                    </td>
+
+                                                    <td>
+                                                        <%=student.srn_no.toUpperCase() %>
+                                                    </td>
+                                                    <td>
+                                                        <%=student.pen_no.toUpperCase() %>
+                                                    </td>
+                                                    <td>
+                                                        <%=student.admission_no.toUpperCase() %>
+                                                    </td>
+                                                    <td>
+                                                        <%=student.class.toUpperCase() %>
+                                                    </td>
+                                                    <td>
+                                                        <%=student.section.toUpperCase() %>
+                                                    </td>
+
+
+                                                    <td><a href="student-profile/<%= student.student_id %>"><img
+                                                                src="/image/edit.png" alt="edit" width="20px"></a></a>
                                                     </td>
                                                     <% count++ %>
                                                 </tr>
-                                                <% } %>
+                                                <%})%>
                                     </tbody>
                                 </table>
 

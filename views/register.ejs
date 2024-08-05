@@ -14,14 +14,14 @@
                         <!-- <br> -->
                         <div class="container">
 
-                            <form class="row g-3 needs-validation" novalidate action="/register" method="post">
+                            <form class="row g-3 needs-validation" enctype="multipart/form-data" id="studentForm">
                                 <div class="col-md-0 text-center">
                                     <img src="/image/graduated.png" id="showStudentPic" class="img-thumbnail "
                                         style="border-radius: 100%;" alt="..." width="200px" height="200px">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="validationFullName" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="validationFullName" name="full_name"
+                                    <input type="text" class="form-control" id="validationFullName" name="name"
                                         required>
                                     <div class="valid-feedback">
                                         Looks good!
@@ -104,7 +104,7 @@
 
                                 <div class="col-md-4">
                                     <label for="validationCustom03" class="form-label">H No / Village </label>
-                                    <input type="text" name="village" class="form-control" id="validationCustom03"
+                                    <input type="text" name="houseNo" class="form-control" id="validationCustom03"
                                         required>
                                     <div class="invalid-feedback">
                                         Please provide a valid city.
@@ -174,7 +174,7 @@
 
                                 <div class="col-md-3">
                                     <label for="validationAdmissionNo" class="form-label">Admission No</label>
-                                    <input type="number" name="admisson_no" class="form-control"
+                                    <input type="number" name="admission_no" class="form-control"
                                         id="validationAdmissionNo" required>
                                     <div class="invalid-feedback">
                                         Please provide a valid ADMISSION NO
@@ -183,7 +183,7 @@
 
                                 <div class="col-md-3">
                                     <label for="validationClass" class="form-label">Class</label>
-                                    <select class="form-select" name="class" id="validationClass" required>
+                                    <select class="form-select" name="school_class" id="validationClass" required>
                                         <option selected disabled value="">Select...</option>
                                         <!-- adding class through ping -->
                                         <option value="NURSERY">NURSERY</option>
@@ -204,13 +204,22 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-3">
+                                    <label for="validationSection" class="form-label">Section</label>
+                                    <input type="text" name="section" class="form-control" id="validationSection"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid Section
+                                    </div>
+                                </div>
+
 
 
                                 <div class="mb-2 col-8">
                                     <label for="selectUserFile" class="form-label">Student Photo</label>
                                     <input type="file" name="userPhoto" accept="image/*" class="form-control"
                                         id="selectUserFile">
-                                    <div class="invalid-feedback">Example invalid form file feedback</div>
+                                    <div class="invalid-feedback">Only jpeg/jpg/png file are supported</div>
                                 </div>
 
 
@@ -242,5 +251,31 @@
 
                 </div>
         </div>
+
+        <script>
+            document.getElementById('studentForm').addEventListener('submit', async function (event) {
+                event.preventDefault();
+                const form = event.target;
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch('/api/student/register', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        alert('Student created successfully!');
+                        form.reset(); // Optional: Reset the form after successful submission
+                    } else {
+                        const errorData = await response.json();
+                        alert('Failed to create student: ' + errorData.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to create student due to a network error');
+                }
+            });
+        </script>
 
         <%- include('partials/footer') %>

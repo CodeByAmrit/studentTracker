@@ -1,35 +1,45 @@
 const express = require('express')
+const path = require('path');
 const router = require('./routes/route')
 const cookieParser = require('cookie-parser')
+const checkAuth = require('./services/checkauth');
+const { getAllStudent_to_Render, getStudentById_render } = require('./components/studentapi');
 
 const app = express()
-const port = 10000
+const port = 8000
 const ip = 'localhost'
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use('/uploads', express.static('uploads'))
 app.use(cookieParser())
 
 app.set('view engine', 'ejs')
 
-app.get('/edit-student', (req, res) => {
-  res.render('edit-student')
-})
-app.get('/message', (req, res) => {
+app.get("/login", router)
+app.get("/signup", router)
+
+app.get('/student-profile/:id', checkAuth, getStudentById_render, (req, res) => {
+  const student = req.onestudent.data ? req.onestudent.data[0] : null;
+  
+  res.render('student-profile', { student });
+});
+
+app.get('/message', checkAuth, (req, res) => {
   res.render('message')
 })
-app.get('/profile', (req, res) => {
+app.get('/profile', checkAuth, (req, res) => {
   res.render('profile')
 })
-app.get('/student', (req, res) => {
-  res.render('student')
+app.get('/student', checkAuth, getAllStudent_to_Render,  (req, res) => {
+  const studentlist = req.studentList.data;
+  res.render('student', {studentlist})
 })
-app.get('/syllabus', (req, res) => {
+app.get('/syllabus', checkAuth, (req, res) => {
   res.render('syllabus')
 })
-app.get('/register', (req, res) => {
+app.get('/register', checkAuth, (req, res) => {
   res.render('register')
 })
 
@@ -37,9 +47,13 @@ app.get('/register', (req, res) => {
 
 app.get('/api/students', router)
 app.get('/api/student/:id', router)
-app.post('/api/student/:id', router)
-app.put('/api/student/:id', router)
+app.post('/api/student/register', router)
+app.put('/api/student/:id', router).post('/api/student/:id', router)
 app.delete('/api/student/:id', router)
+
+// teacher api
+app.post('/signup', router)
+app.post('/login', router)
 
 app.listen(port, ip, err => {
   if (err) {

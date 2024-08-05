@@ -5,7 +5,7 @@ const secret = 'Amrit@Amrit@Amrit@123'
 function setUser (user) {
   return jwt.sign(
     {
-      _id: user._id,
+      _id: user.id,
       email: user.email,
       first_name: user.first_name,
       last_name: user.last_name
