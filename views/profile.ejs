@@ -7,70 +7,110 @@
 
                 <div class="main p-3 custom-scrollbar-js p-2" style="height: 100vh; overflow-y:auto">
                     <div class="row gap-2 ">
-                        <% for (let i=1; i <=10; i++) { %>
+                        <% studentlist.forEach(student=>{ %>
 
                             <div class="col w-100 d-flex align-items-center justify-content-lg-center">
                                 <div class="card p-3 shadow-sm ">
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center response">
 
-                                        <div class="image">
-                                            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-                                                class="rounded" width="155" style="margin-right: 20px;">
-                                        </div>
+                                        <% if (student.photo) { %>
+                                            <div class="image" style="margin-right: 20px;">
+                                                <img src="data:image/jpeg;base64,<%= student.photo %>"
+                                                    alt="Student Photo" class="rounded" width="155">
+                                            </div>
+                                            <% } else { %>
+                                                <div class="image" style="margin-right: 15px;">
+                                                    <img src="/image/graduated.png" class="rounded" width="150">
+                                                </div>
+                                                <% } %>
 
-                                        <div class="ml-3 w-100">
+                                                    <div class="ml-3 w-100">
 
-                                            <h4 class="mb-0 mt-0">Alex HMorrision</h4>
-                                            <span>Class<%= i %></span>
+                                                        <h4 class="mb-0 mt-0">
+                                                            <%= student.full_name.split(" ")[0] %>
+                                            </h4>
+                                            <span>
+                                                <%= student.srn_no %>
+                                            </span>
 
                                             <div
-                                                class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                                                class=" p-2 mt-2 bg-primary d-flex justify-content-between rounded
+                                                                text-white stats">
 
-                                                <div class="d-flex flex-column">
+                                                                <div class="d-flex flex-column">
 
-                                                    <span class="articles">Articles</span>
-                                                    <span class="number1">38</span>
+                                                                    <span class="articles">Class</span>
+                                                                    <span class="number1">
+                                                                        <%= student.class %>
+                                                                    </span>
 
-                                                </div>
+                                                                </div>
 
-                                                <div class="d-flex flex-column">
+                                                                <div class="d-flex flex-column">
 
-                                                    <span class="followers">Followers</span>
-                                                    <span class="number2">980</span>
+                                                                    <span class="followers">Section</span>
+                                                                    <span class="number2">
+                                                                        <%= student.section %>
+                                                                    </span>
 
-                                                </div>
+                                                                </div>
 
-                                                <div class="d-flex flex-column">
+                                                                <div class="d-flex flex-column">
 
-                                                    <span class="rating">Rating</span>
-                                                    <span class="number3">8.9</span>
+                                                                    <span class="rating">Gender</span>
+                                                                    <span class="number3">
+                                                                        <%= student.gender %>
+                                                                    </span>
 
-                                                </div>
+                                                                </div>
 
-                                            </div>
-
-
-                                            <div class="button mt-2 d-flex flex-row align-items-center">
-
-                                                <button class="btn btn-sm btn-outline-primary w-100 me-2">Chat</button>
-                                                <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button>
-
-
-                                            </div>
+                                                    </div>
 
 
-                                        </div>
+                                                    <div class="button mt-2 d-flex flex-row align-items-center w-2">
+
+
+                                                        <a href="https://wa.me/<%= student.phone_no %>" target="_blank">
+                                                            <button class="btn btn-sm btn-outline-success w-100 me-2"
+                                                                style="width: 130% !important;">WhatApp</button>
+                                                        </a>
+
+
+
+
+                                                    </div>
+                                                    <div class="button mt-2 d-flex flex-row align-items-center">
+                                                        <div>
+                                                            <a href="document/<%= student.student_id %>"
+                                                                target="_blank">
+                                                                <button
+                                                                    class="btn btn-sm btn-danger w-100 ml-5 ">PDF</button>
+                                                            </a>
+                                                        </div>
+
+                                                        <div style="margin-left: 10px;">
+                                                            <a href="student-profile/<%= student.student_id %>">
+                                                                <button
+                                                                    class="btn btn-sm btn-primary w-100 ml-2">Profile
+                                                                </button>
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
 
 
                                     </div>
 
+
                                 </div>
+
                             </div>
-
-                            <% } %>
-
                     </div>
+
+                    <% }) %>
+
                 </div>
+        </div>
         </div>
 
         <%- include('partials/footer') %>

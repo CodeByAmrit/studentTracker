@@ -14,7 +14,11 @@
                         <nav class="navbar bg-body-tertiary"
                             style="background-color: rgba(240, 248, 255, 0) !important;">
                             <div class="container-fluid">
-                                <a class="navbar-brand"></a>
+                                <button class="btn btn-primary" type="button" id="getExcelFile" data-toggle="tooltip"
+                                    data-placement="top" title="Download all Student data in Excel file.">
+                                    Get Excel
+
+                                </button>
                                 <form class="d-flex" role="search">
                                     <input class="form-control me-2" type="search" placeholder="Search"
                                         aria-label="Search">
@@ -44,40 +48,44 @@
                                     <tbody>
                                         <% let count=1 %>
                                             <% studentlist.forEach(student=>{ %>
-                                                <tr>
-                                                    <th scope="row">
-                                                        <%= count %>
-                                                    </th>
+                                                <span style="cursor: pointer;">
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <%= count %>
+                                                        </th>
 
-                                                    <td>
-                                                        <%=student.full_name.toUpperCase() %>
-                                                    </td>
-                                                    <td>
-                                                        <%=student.father_name.toUpperCase() %>
-                                                    </td>
+                                                        <td>
+                                                            <%=student.full_name.toUpperCase() %>
+                                                        </td>
+                                                        <td>
+                                                            <%=student.father_name.toUpperCase() %>
+                                                        </td>
 
-                                                    <td>
-                                                        <%=student.srn_no.toUpperCase() %>
-                                                    </td>
-                                                    <td>
-                                                        <%=student.pen_no.toUpperCase() %>
-                                                    </td>
-                                                    <td>
-                                                        <%=student.admission_no.toUpperCase() %>
-                                                    </td>
-                                                    <td>
-                                                        <%=student.class.toUpperCase() %>
-                                                    </td>
-                                                    <td>
-                                                        <%=student.section.toUpperCase() %>
-                                                    </td>
+                                                        <td>
+                                                            <%=student.srn_no.toUpperCase() %>
+                                                        </td>
+                                                        <td>
+                                                            <%=student.pen_no.toUpperCase() %>
+                                                        </td>
+                                                        <td>
+                                                            <%=student.admission_no.toUpperCase() %>
+                                                        </td>
+                                                        <td>
+                                                            <%=student.class.toUpperCase() %>
+                                                        </td>
+                                                        <td>
+                                                            <%=student.section.toUpperCase() %>
+                                                        </td>
 
 
-                                                    <td><a href="student-profile/<%= student.student_id %>"><img
-                                                                src="/image/edit.png" alt="edit" width="20px"></a></a>
-                                                    </td>
-                                                    <% count++ %>
-                                                </tr>
+                                                        <td><a href="student-profile/<%= student.student_id %>"><img
+                                                                    src="/image/edit.png" alt="edit" width="20px"></a>
+                                                            </a>
+                                                        </td>
+                                                        <% count++ %>
+                                                    </tr>
+                                                </span>
+
                                                 <%})%>
                                     </tbody>
                                 </table>
@@ -89,5 +97,35 @@
 
                 </div>
         </div>
+
+        <script>
+            document.getElementById('getExcelFile').addEventListener('click', async () => {
+                document.getElementById("getExcelFile").innerHTML = `<span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                    Loading...`;
+                try {
+                    const response = await fetch('/get-excel-student');
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'students.xlsx';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    } else {
+                        alert('Failed to download file');
+                    }
+
+                } catch (error) {
+                    console.error('Error downloading file:', error);
+                    alert('Error downloading file');
+                } finally {
+                    document.getElementById("getExcelFile").innerHTML = `Get Excel`;
+                }
+
+            });
+        </script>
 
         <%- include('partials/footer') %>

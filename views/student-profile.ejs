@@ -12,34 +12,85 @@
                     <hr>
 
                     <section>
-                        <form action="/api/student/<%= student ? student.student_id : 'N/A'  %>" method="post"
+                        <form action="/student-profile/<%= student ? student.student_id : 'N/A'  %>" method="post"
                             enctype="multipart/form-data">
                             <div class="container py-2">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <div class="card mb-4">
+                                        <div class="card mb-4 shadow-sm" style="width: 100%;">
                                             <div class="card-body text-center">
-                                                <img src="/image/graduated.png" id="showStudentPic"
-                                                    class="rounded-circle img-fluid" alt="..." width="150px"
-                                                    height="150px">
-                                                <!-- Student Name -->
-                                                <h5 class="my-3">
-                                                    <%= student ? student.full_name : 'N/A' %>
-                                                </h5>
-                                                <p class="text-muted mb-1">Full Stack Developer</p>
-                                                <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                                <% if (student ? student.photo : false) { %>
+                                                    <img src="data:image/jpeg;base64,<%= student.photo %>"
+                                                        id="showStudentPic" class="rounded-circle img-fluid" alt="..."
+                                                        width="150px" height="150px">
+                                                    <% } else { %>
+                                                        <img src="/image/graduated.png" id="showStudentPic"
+                                                            class="rounded-circle img-fluid" alt="..." width="150px"
+                                                            height="150px">
+                                                        <% } %>
+                                                            <!-- Student Name -->
+                                                            <h5 class="my-3">
+                                                                <%= student ? student.full_name : 'N/A' %>
+                                                            </h5>
+                                                            <hr>
+
+                                                            <div class="mb-2 col-12">
+
+                                                                <input type="file" name="userPhoto" accept="image/*"
+                                                                    class="form-control" aria-label="file example"
+                                                                    id="selectUserFile">
+                                                                <div class="invalid-feedback">Example invalid form file
+                                                                    feedback
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-center mb-2">
+                                                                <button type="submit" data-mdb-button-init
+                                                                    data-mdb-ripple-init class="btn btn-primary"
+                                                                    id="editStudentBtn">Upload Photo</button>
+
+                                                                <button type="button" id="stdDeleteBtn"
+                                                                    data-mdb-button-init data-mdb-ripple-init
+                                                                    class="btn btn-outline-danger ms-1">Delete
+                                                                </button>
+
+                                                            </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card mb-4 shadow-sm" style="width: 100%;">
+                                            <div class="card-body text-center">
+
+                                                <!-- Upload PDF      -->
+                                                <h5 class="my-1">Upload Document</h5>
+                                                <h6 class="my-2">One PDF only, max size - 16 MB</h6>
+                                                <hr>
+
+                                                <div class="mb-2 col-12">
+
+                                                    <input type="file" name="userPhoto" accept=".pdf"
+                                                        class="form-control" aria-label="file example" id="documentPDF">
+
+                                                    <div class="invalid-feedback">Example invalid form file
+                                                        feedback
+                                                    </div>
+                                                </div>
+
                                                 <div class="d-flex justify-content-center mb-2">
                                                     <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                                        class="btn btn-primary" id="editStudentBtn">Update</button>
-                                                    <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                                        class="btn btn-outline-primary ms-1">Message</button>
+                                                        class="btn btn-primary" id="uploadPDFBtn">Upload PDF</button>
+
+                                                    <button type="button" id="deletePDF" data-mdb-button-init
+                                                        data-mdb-ripple-init class="btn btn-outline-danger ms-1">Delete
+                                                    </button>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-8" style="display: flex; justify-content:center;">
-                                        <div class="card mb-4">
+                                        <div class="card mb-5 shadow-sm" style="margin-bottom: 20px; width:100%;">
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-sm-3">
@@ -93,8 +144,8 @@
                                                         <label for="phone" class="form-label">Phone</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <input name="phone" type="text" class="form-control" id="phone"
-                                                            value="<%= student ? student.phone_no : '' %>">
+                                                        <input name="phone_no" type="text" class="form-control"
+                                                            id="phone" value="<%= student ? student.phone_no : '' %>">
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -115,7 +166,7 @@
                                                         <label for="village" class="form-label">H No</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <input name="village" type="text" class="form-control"
+                                                        <input name="house_no" type="text" class="form-control"
                                                             id="village" value="<%= student ? student.house_no : '' %>">
                                                     </div>
                                                 </div>
@@ -178,7 +229,7 @@
                                                         <label for="srnNo" class="form-label">SRN No</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <input name="srnNo" type="text" class="form-control" id="srnNo"
+                                                        <input name="srn_no" type="text" class="form-control" id="srnNo"
                                                             value="<%= student ? student.srn_no : '' %>">
                                                     </div>
                                                 </div>
@@ -189,7 +240,7 @@
                                                         <label for="penNo" class="form-label">PEN NO</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <input name="penNo" type="text" class="form-control" id="penNo"
+                                                        <input name="pen_no" type="text" class="form-control" id="penNo"
                                                             value="<%= student ? student.pen_no : '' %>">
                                                     </div>
                                                 </div>
@@ -200,7 +251,7 @@
                                                         <label for="admissionNo" class="form-label">Admission No</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <input name="admissionNo" type="text" class="form-control"
+                                                        <input name="admission_no" type="text" class="form-control"
                                                             id="admissionNo"
                                                             value="<%= student ? student.admission_no : '' %>">
                                                     </div>
@@ -223,22 +274,10 @@
                                                         <label for="section" class="form-label">Section</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <input name="class" type="text" class="form-control"
+                                                        <input name="section" type="text" class="form-control"
                                                             id="section" value="<%= student ? student.section : '' %>">
                                                     </div>
                                                 </div>
-                                                <hr>
-
-                                                <div class="mb-2 col-12">
-                                                    <label for="selectUserFile" class="form-label">Student Photo</label>
-                                                    <input type="file" name="userPhoto" accept="image/*"
-                                                        class="form-control" aria-label="file example"
-                                                        id="selectUserFile">
-                                                    <div class="invalid-feedback">Example invalid form file feedback
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-1"></div>
 
                                             </div>
                                         </div>
@@ -249,9 +288,18 @@
                     </section>
                 </div>
         </div>
+        <div class="alert alert-warning" role="alert" style="position: absolute; top: 20px; right:20px; display:none;"
+            id="userPhotoMessage">
+
+        </div>
     </body>
 
     <script>
+        var currentUrl = window.location.href;
+
+        // Extract the last part of the path
+        var urlParts = currentUrl.split('/');
+        var ID = urlParts[urlParts.length - 1];
         const hamBurger = document.querySelector('.toggle-btn')
 
         hamBurger.addEventListener('click', function () {
@@ -274,31 +322,91 @@
             console.log('selectUserFile')
         }
 
-        // document
-        //   .getElementById('validationZip')
-        //   .addEventListener('change', function (zip) {
-        //     const pincode = document.getElementById('validationZip').value // Replace with the desired pincode
-        //     const url = `https://api.postalpincode.in/pincode/${pincode}`
+        document.addEventListener('keydown', function (event) {
+            if (event.ctrlKey && event.key === 's') {
+                event.preventDefault(); // Prevent the default save dialog
+                document.getElementById('editStudentBtn').click();
+            }
+        });
 
-        //     const uniqueState = new Set([])
-        //     const uniquedistrict = new Set([])
+        document.getElementById("stdDeleteBtn").addEventListener('click', async function (event) {
+            let user_action = confirm("Are you sure you want to delete this student record? This action cannot be undone.");
+            if (user_action) {
+                let path2 = "/student-profile/delete/" + ID.toString();
+                const response = await fetch(path2, {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    alert("Student Deleted Successfully");
+                    windows.location.href = "/profile";
+                }
+            }
+        });
 
-        //     fetch(url)
-        //       .then(response => response.json())
-        //       .then(data => {
-        //         if (data[0].Status === 'Success') {
-        //           document.getElementById('validationState').value =
-        //             data[0].PostOffice[0].State
-        //           document.getElementById('validationDistrict').value =
-        //             data[0].PostOffice[0].District
-        //           // console.log('State:', data[0].PostOffice[0].State)
-        //           // document.getElementById.value = console.log('District:',data[0].PostOffice[0].District)
-        //         } else {
-        //           console.log('No data found for the given pincode.')
-        //         }
-        //       })
-        //       .catch(error => console.error('Error:', error))
-        //   })
+        document.getElementById("deletePDF").addEventListener("click", async function (event) {
+            event.preventDefault()
+            const studentId = ID;
+            const res = await fetch("/document/delete", {
+                method: 'POST'
+            });
+            if (res.ok) {
+                const { message } = res;
+                alert(message);
+            }
+            else {
+                alert(res.error)
+            }
+        }
+        );
+
+        document.getElementById("uploadPDFBtn").addEventListener('click', async function (event) {
+            event.preventDefault()
+            const fileInput = document.getElementById('documentPDF');
+            const file = fileInput.files[0];
+            const studentId = ID;
+
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            if (!studentId) {
+                alert("Please enter a student ID.");
+                return;
+            }
+
+            try {
+                const PDF_form = new FormData();
+                PDF_form.append('student_id', studentId);
+                PDF_form.append('document', file);
+
+                const response = await fetch('/document', {
+                    method: 'POST',
+                    body: PDF_form
+                });
+
+                if (response.ok) {
+                    alert("PDF uploaded successfully.");
+                } else {
+                    alert(response.message);
+                }
+            } catch (error) {
+                console.error('Error uploading document:', error);
+                alert("Error uploading document.");
+            }
+        });
+
+        document.getElementById('selectUserFile').addEventListener('change', function () {
+            const file = this.files[0];
+            const message = document.getElementById('userPhotoMessage');
+
+            if (file && file.size > 64 * 1024) { // 64 KB = 64 * 1024 bytes
+                message.style.display = "flex";
+                message.textContent = 'The Image Size should be smaller than 64kb';
+            } else {
+                message.style.display = "none";
+            }
+        });
 
         const states_ = {
             states: [
