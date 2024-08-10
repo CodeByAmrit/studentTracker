@@ -442,33 +442,45 @@ async function getPdfWithPDF(req, res) {
 }
 
 async function insertPDF(req, res) {
-  let connection ;
+  let connection;
   const student_id = req.body.student_id;
   const pdf_from_body = req.file.buffer;
+
   if (!pdf_from_body || !student_id) {
     console.log("No PDF file or student_id");
+    res.status(400).json({ result: 'Invalid request, missing PDF or student_id' });
+    return;
   }
-  console.log("insert pdf runs");
-  
 
   try {
     connection = await getConnection();
-    const sql = 'INSERT INTO studentDocument (student_id, document) VALUES (?, ?)';
-    const [result] = await connection.execute(sql, [student_id, pdf_from_body]);
 
-    res.status(200).json({result:'Document uploaded successfully'});
+    // Check if the record already exists
+    const checkSql = 'SELECT COUNT(*) as count FROM studentDocument WHERE student_id = ?';
+    const [checkResult] = await connection.execute(checkSql, [student_id]);
+
+    if (checkResult[0].count > 0) {
+      // Record exists, update it
+      const updateSql = 'UPDATE studentDocument SET document = ? WHERE student_id = ?';
+      await connection.execute(updateSql, [pdf_from_body, student_id]);
+      res.status(200).json({ result: 'Document updated successfully' });
+    } else {
+      // Record does not exist, insert new record
+      const insertSql = 'INSERT INTO studentDocument (student_id, document) VALUES (?, ?)';
+      await connection.execute(insertSql, [student_id, pdf_from_body]);
+      res.status(200).json({ result: 'Document uploaded successfully' });
+    }
   } catch (error) {
     console.log(error);
-    
-    res.json({ message: error });
-  }finally {
+    res.status(500).json({ result: error.sqlMessage.toString() });
+  } finally {
     if (connection) {
       await connection.end();
       console.log("disconnect");
-      
     }
   }
 }
+
 
 
 module.exports = {

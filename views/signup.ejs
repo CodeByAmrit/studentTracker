@@ -3,98 +3,117 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - Finance Mobile Application-UX/UI Design Screen One</title>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel='stylesheet'
-        href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap'>
-    <link rel="stylesheet" href="/css/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Sign Up</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <style>
-        .loginContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100vw;
-            height: 80vh;
+        .rightLogin {
+            width: 70%;
+            min-height: 100vh;
+        }
+
+        .leftLogin {
+            width: 30%;
+            min-height: 100vh;
+            background-color: #ebf8ff;
+            color: rgb(43 108 176);
         }
     </style>
 </head>
 
 <body>
-    <div class="loginContainer">
-        <form action="/signup" method="post">
-            <div class="screen-1">
-                <svg class="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    version="1.1" width="300" height="300" viewbox="0 0 640 480" xml:space="preserve">
-                    <g transform="matrix(3.31 0 0 3.31 320.4 240.4)">
-                        <circle
-                            style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(61,71,133); fill-rule: nonzero; opacity: 1;"
-                            cx="0" cy="0" r="40"></circle>
-                    </g>
-                    <g transform="matrix(0.98 0 0 0.98 268.7 213.7)">
-                        <circle
-                            style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-                            cx="0" cy="0" r="40"></circle>
-                    </g>
-                    <g transform="matrix(1.01 0 0 1.01 362.9 210.9)">
-                        <circle
-                            style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-                            cx="0" cy="0" r="40"></circle>
-                    </g>
-                    <g transform="matrix(0.92 0 0 0.92 318.5 286.5)">
-                        <circle
-                            style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-                            cx="0" cy="0" r="40"></circle>
-                    </g>
-                    <g transform="matrix(0.16 -0.12 0.49 0.66 290.57 243.57)">
-                        <polygon
-                            style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-                            points="-50,-50 -50,50 50,50 50,-50 "></polygon>
-                    </g>
-                    <g transform="matrix(0.16 0.1 -0.44 0.69 342.03 248.34)">
-                        <polygon
-                            style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-                            vector-effect="non-scaling-stroke" points="-50,-50 -50,50 50,50 50,-50 "></polygon>
-                    </g>
-                </svg>
-                <div class="email">
-                    <label for="name">First Name</label>
-                    <div class="sec-2">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="text" name="firstName" placeholder="Frist Name" />
-                    </div>
-                </div>
-                <div class="email">
-                    <label for="last">Last Name</label>
-                    <div class="sec-2">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="text" name="lastName" placeholder="Last Name" />
-                    </div>
-                </div>
-                <div class="email">
-                    <label for="email">Email Address</label>
-                    <div class="sec-2">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" name="email" placeholder="Username@gmail.com" />
-                    </div>
-                </div>
-                <div class="password">
-                    <label for="password">Password</label>
-                    <div class="sec-2">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input class="pas" type="password" name="password" placeholder="············" />
-                        <ion-icon class="show-hide" name="eye-outline"></ion-icon>
-                    </div>
-                </div>
-                <button class="login" type="submit">Create </button>
-                <div class="footer"><span><a href="/login" style="text-decoration: none;">Login</a></span><span>Forgot
-                        Password?</span></div>
+    <div class="d-flex justify-content-center pe-5" style="font-family: Calibri;">
+        <div class=" leftLogin d-flex flex-column p-3">
+            <div class="d-flex justify-content-between">
+                <div class="fs-4">Student Tracker</div>
+                <div></div>
             </div>
-        </form>
+            <div style="height: 100vh;" class="d-flex flex-column justify-content-center align-items-center p-3">
+                <img src="/image/session-teacher-2.svg" alt="teacher" width="250px">
+                <div class="fs-4"><b>Prepare Your Students for Their Future </b></div class="fs-4">
+                <div>Manage, track, and report on student progress quickly and easily. StudentTracker is completely
+                    FREE!</div>
+            </div>
+
+        </div>
+        <div class="container rightLogin d-flex flex-column mt-5 align-items-center" style="font-family: calibri;">
+            <div class="fs-2"><b>Sign Up as Teacher </b></div>
+            <div class="fs-6 mb-5">Already have an account? <a href="/login.html">Log in here </a></div>
+            <div style="width: 700px; ">
+                <form action="/signup" method="post">
+                    <div class="input-group mb-3 col">
+                        <div class="form-group mb-3 col-6">
+                            <label for="exampleInputName">First Name</label>
+                            <input type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp"
+                                placeholder="" name="firstName">
+                        </div>
+                        <div class="form-group mb-3 col-6 ps-4">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" aria-describedby="emailHelp"
+                                placeholder="" name="lastName">
+                        </div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="exampleInputEmail1">Email Id *</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="" name="email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder=""
+                            name="password">
+                    </div>
+
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                        <button class="btn btn-primary me-md-2 fs-5" type="button"
+                            style="width: 110px; height:50px;">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
+    <!-- Forget Password -->
+    <form action="#">
+        <div class="modal fade " id="forgetPassword" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Forgot Your Login Info?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please enter your email below and password change instructions will be sent to you.</p>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Send Password Reset Email</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

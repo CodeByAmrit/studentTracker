@@ -6,6 +6,7 @@
             <%- include('partials/navbar') %>
 
                 <div class="main p-3 custom-scrollbar-js p-2" style="height: 100vh; overflow-y:auto">
+                    <div>Student Tracker</div>
                     <div class="row gap-2 ">
                         <% studentlist.forEach(student=>{ %>
 
@@ -66,32 +67,28 @@
 
                                                     </div>
 
-
-                                                    <div class="button mt-2 d-flex flex-row align-items-center w-2">
-
-
-                                                        <a href="https://wa.me/<%= student.phone_no %>" target="_blank">
-                                                            <button class="btn btn-sm btn-outline-success w-100 me-2"
-                                                                style="width: 130% !important;">WhatApp</button>
-                                                        </a>
-
-
-
-
-                                                    </div>
                                                     <div class="button mt-2 d-flex flex-row align-items-center">
-                                                        <div>
+                                                        <div style="margin-right: 10px;">
+                                                            <a href="https://wa.me/<%= student.phone_no %>"
+                                                                target="_blank">
+                                                                <button class="btn btn-sm btn-outline-success me-2"
+                                                                    style="width: 130% !important;"><img
+                                                                        src="/image/whatsapp.png" alt="W"
+                                                                        width="20px"></button>
+                                                            </a>
+                                                        </div>
+                                                        <div style="margin-left: 10px;">
                                                             <a href="document/<%= student.student_id %>"
                                                                 target="_blank">
-                                                                <button
-                                                                    class="btn btn-sm btn-danger w-100 ml-5 ">PDF</button>
+                                                                <button class="btn btn-sm btn-outline-danger ml-5 "><img
+                                                                        src="/image/pdf.png" alt="pdf"
+                                                                        width="20px"></button>
                                                             </a>
                                                         </div>
 
                                                         <div style="margin-left: 10px;">
                                                             <a href="student-profile/<%= student.student_id %>">
-                                                                <button
-                                                                    class="btn btn-sm btn-primary w-100 ml-2">Profile
+                                                                <button class="btn btn-sm btn-primary ml-2">Profile
                                                                 </button>
                                                             </a>
                                                         </div>
