@@ -6,8 +6,8 @@ const checkAuth = require('./services/checkauth');
 const { getAllStudent_to_Render, getStudentById_render, getStudentWithPhoto } = require('./components/studentapi');
 
 const app = express();
-const port = 2020;
-const ip = 'localhost';
+const port = process.env.PORT || 2020;
+// const ip = 'localhost';
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -75,7 +75,7 @@ app.get("/logout", router)
 // remove background
 app.post('/remove-bg', router)
 
-app.listen(port, ip, err => {
+app.listen(port,  err => {
   if (err) {
     console.error('Error starting server:', err)
   } else {
