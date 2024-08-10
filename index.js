@@ -79,6 +79,6 @@ app.listen(port,  err => {
   if (err) {
     console.error('Error starting server:', err)
   } else {
-    console.log(`Server is running on http://${ip}:${port}`)
+    console.log(`Server is running on http://localhost:${port}`)
   }
 })
