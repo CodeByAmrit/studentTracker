@@ -59,12 +59,17 @@ body {
     background-color: #d8f3ff7e;
 }
 
+.custom-border {
+    border-color: #dfdfdf;
+    /* Replace with your desired color */
+}
+
 #sidebar {
     width: 70px;
     min-width: 70px;
     z-index: 1000;
     transition: all .25s ease-in-out;
-    background-color: #0e2238;
+    background-color: rgb(49 130 206);
     display: flex;
     flex-direction: column;
 }

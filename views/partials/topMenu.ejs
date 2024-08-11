@@ -1,0 +1,56 @@
+<nav class="navbar bg-body-tertiary fixed-top p-3 px-5 shadow-sm"
+    style="position: sticky; background-color:white !important; scale:1.05; ">
+    <div class="container-fluid">
+        <div class="col-6">
+            <form class=" input-group d-flex col-2" role="search">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username"
+                    aria-describedby="button-SearchBtn">
+                <button class="btn btn-light custom-border" type="button" id="button-SearchBtn">
+                    <img src="/image/search.svg" alt="search" width="20px">
+                </button>
+            </form>
+        </div>
+        <div class="d-flex">
+            <div class="dropdown mx-2">
+                <button class="btn btn-outline-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="25px" height="25px"
+                        fill="#3182ce">
+                        <path
+                            d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM504 312l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                    </svg>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end">
+                    <li><a class="dropdown-item" href="/register">Add Student</a></li>
+                    <li><a class="dropdown-item" href="#">Upload Excel</a></li>
+                </ul>
+            </div>
+            <p>|</p>
+            <div class="dropdown mx-2">
+                <button class="btn btn-outline-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="25px" height="25px">
+                        <path fill="#3182ce"
+                            d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416l400 0c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4l0-25.4c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112l0 25.4c0 47.9 13.9 94.6 39.7 134.6L72.3 368C98.1 328 112 281.3 112 233.4l0-25.4c0-61.9 50.1-112 112-112zm64 352l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z" />
+                    </svg>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end">
+                    <li><a class="dropdown-item" href="/register">Message Box</a></li>
+                    <li><a class="dropdown-item" href="#">Message Box</a></li>
+                </ul>
+            </div>
+            <p>|</p>
+            <div class="dropdown mx-2">
+                <button class="btn btn-outline-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                    <img src="/image/user-solid.svg" alt="user" width="30px" height="30px" style="border-radius:100%;;">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end">
+                    <li><a class="dropdown-item" href="#">Account</a></li>
+                    <li><a class="dropdown-item" href="#">help</a></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -15,6 +15,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/uploads', express.static('uploads'))
 app.use(cookieParser())
 
+// Serve Bootstrap CSS from node_modules
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
+
 app.set('view engine', 'ejs')
 
 app.get("/login", router)

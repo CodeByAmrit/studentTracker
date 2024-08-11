@@ -5,30 +5,32 @@
             <!-- Bottom Navbar -->
             <%- include('partials/navbar') %>
 
-                <div class="main p-3 custom-scrollbar-js p-2" style="height: 100vh; overflow-y:auto">
-                    <div>Student Tracker</div>
-                    <div class="row gap-2 ">
-                        <% studentlist.forEach(student=>{ %>
+                <div class="main p-3 custom-scrollbar-js p-2"
+                    style="height: 100vh; overflow-y:auto; position: relative !important; padding-top:0 !important;">
+                    <%- include('partials/topMenu') %>
+                        <!-- <div>Student Tracker</div> -->
+                        <div class="row gap-2 mb-5 mt-2">
+                            <% studentlist.forEach(student=>{ %>
 
-                            <div class="col w-100 d-flex align-items-center justify-content-lg-center">
-                                <div class="card p-3 shadow-sm ">
-                                    <div class="d-flex align-items-center response">
+                                <div class="col w-100 d-flex align-items-center justify-content-lg-center">
+                                    <div class="card p-3 shadow-sm ">
+                                        <div class="d-flex align-items-center response">
 
-                                        <% if (student.photo) { %>
-                                            <div class="image" style="margin-right: 20px;">
-                                                <img src="data:image/jpeg;base64,<%= student.photo %>"
-                                                    alt="Student Photo" class="rounded" width="155">
-                                            </div>
-                                            <% } else { %>
-                                                <div class="image" style="margin-right: 15px;">
-                                                    <img src="/image/graduated.png" class="rounded" width="150">
+                                            <% if (student.photo) { %>
+                                                <div class="image" style="margin-right: 10px;">
+                                                    <img src="data:image/jpeg;base64,<%= student.photo %>"
+                                                        alt="Student Photo" class="rounded" width="135">
                                                 </div>
-                                                <% } %>
+                                                <% } else { %>
+                                                    <div class="image" style="margin-right: 10px;">
+                                                        <img src="/image/graduated.png" class="rounded" width="130">
+                                                    </div>
+                                                    <% } %>
 
-                                                    <div class="ml-3 w-100">
+                                                        <div class="ml-3 w-100">
 
-                                                        <h4 class="mb-0 mt-0">
-                                                            <%= student.full_name.split(" ")[0] %>
+                                                            <h4 class="mb-0 mt-0">
+                                                                <%= student.full_name.split(" ")[0] %>
                                             </h4>
                                             <span>
                                                 <%= student.srn_no %>
@@ -36,75 +38,77 @@
 
                                             <div
                                                 class=" p-2 mt-2 bg-primary d-flex justify-content-between rounded
-                                                                text-white stats">
+                                                                    text-white stats">
 
-                                                                <div class="d-flex flex-column">
+                                                                    <div class="d-flex flex-column">
 
-                                                                    <span class="articles">Class</span>
-                                                                    <span class="number1">
-                                                                        <%= student.class %>
-                                                                    </span>
+                                                                        <span class="articles">Class</span>
+                                                                        <span class="number1">
+                                                                            <%= student.class %>
+                                                                        </span>
 
-                                                                </div>
+                                                                    </div>
 
-                                                                <div class="d-flex flex-column">
+                                                                    <div class="d-flex flex-column">
 
-                                                                    <span class="followers">Section</span>
-                                                                    <span class="number2">
-                                                                        <%= student.section %>
-                                                                    </span>
+                                                                        <span class="followers">Section</span>
+                                                                        <span class="number2">
+                                                                            <%= student.section %>
+                                                                        </span>
 
-                                                                </div>
+                                                                    </div>
 
-                                                                <div class="d-flex flex-column">
+                                                                    <div class="d-flex flex-column">
 
-                                                                    <span class="rating">Gender</span>
-                                                                    <span class="number3">
-                                                                        <%= student.gender %>
-                                                                    </span>
+                                                                        <span class="rating">Gender</span>
+                                                                        <span class="number3">
+                                                                            <%= student.gender %>
+                                                                        </span>
 
-                                                                </div>
+                                                                    </div>
 
-                                                    </div>
-
-                                                    <div class="button mt-2 d-flex flex-row align-items-center">
-                                                        <div style="margin-right: 10px;">
-                                                            <a href="https://wa.me/<%= student.phone_no %>"
-                                                                target="_blank">
-                                                                <button class="btn btn-sm btn-outline-success me-2"
-                                                                    style="width: 130% !important;"><img
-                                                                        src="/image/whatsapp.png" alt="W"
-                                                                        width="20px"></button>
-                                                            </a>
-                                                        </div>
-                                                        <div style="margin-left: 10px;">
-                                                            <a href="document/<%= student.student_id %>"
-                                                                target="_blank">
-                                                                <button class="btn btn-sm btn-outline-danger ml-5 "><img
-                                                                        src="/image/pdf.png" alt="pdf"
-                                                                        width="20px"></button>
-                                                            </a>
                                                         </div>
 
-                                                        <div style="margin-left: 10px;">
-                                                            <a href="student-profile/<%= student.student_id %>">
-                                                                <button class="btn btn-sm btn-primary ml-2">Profile
-                                                                </button>
-                                                            </a>
+                                                        <div
+                                                            class="button mt-2 d-flex flex-row align-items-center justify-content-around">
+                                                            <div style="margin-right: 0px;">
+                                                                <a href="https://wa.me/<%= student.phone_no %>"
+                                                                    target="_blank">
+                                                                    <button class="btn btn-sm btn-outline-success me-2"
+                                                                        style="width: 100% !important;"><img
+                                                                            src="/image/whatsapp.png" alt="W"
+                                                                            width="20px"></button>
+                                                                </a>
+                                                            </div>
+                                                            <div style="margin-left: 0px;">
+                                                                <a href="document/<%= student.student_id %>"
+                                                                    target="_blank">
+                                                                    <button
+                                                                        class="btn btn-sm btn-outline-danger ml-5 "><img
+                                                                            src="/image/pdf.png" alt="pdf"
+                                                                            width="20px"></button>
+                                                                </a>
+                                                            </div>
+
+                                                            <div style="margin-left: px;">
+                                                                <a href="student-profile/<%= student.student_id %>">
+                                                                    <button class="btn btn-sm btn-primary ml-2">Profile
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+
                                                         </div>
 
-                                                    </div>
+
+                                        </div>
 
 
                                     </div>
 
-
                                 </div>
+                        </div>
 
-                            </div>
-                    </div>
-
-                    <% }) %>
+                        <% }) %>
 
                 </div>
         </div>
