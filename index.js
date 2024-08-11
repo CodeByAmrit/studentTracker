@@ -17,7 +17,7 @@ app.disable('x-powered-by');
 // Define the rate limiter
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 80, // Limit each IP to 80 requests per windowMs
+  max: 300, // Limit each IP to 80 requests per windowMs
   message: 'Too many requests from this IP, please try again later.',
   headers: true, // Include rate limit info in headers
 });

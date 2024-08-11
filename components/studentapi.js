@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const  { setUser } = require("../services/aouth")
+const { setUser } = require("../services/aouth")
 const { getConnection } = require('../models/getConnection');
 
 const saltRounds = 10;
@@ -7,18 +7,18 @@ const saltRounds = 10;
 async function getAllStudentsByTeacherId(req, res) {
   let connection;
   let teacherId = req.user._id;
-  
-  
+
+
   try {
     connection = await getConnection();
     const [rows] = await connection.execute(
       'SELECT student_id, teacher_id, full_name, father_name, mother_name, email, phone_no, house_no, state, district, zip, gender, srn_no, pen_no, admission_no, class, section FROM students WHERE teacher_id = ?',
       [teacherId]
     );
-    return res.json({data: rows});
+    return res.json({ data: rows });
   } catch (error) {
     console.error(error, "SEND JSON");
-    res.json({data: "Fail to get students"})
+    res.json({ data: "Fail to get students" })
   } finally {
     if (connection) {
       await connection.end();
@@ -29,15 +29,15 @@ async function getAllStudentsByTeacherId(req, res) {
 async function getAllStudent_to_Render(req, res, next) {
   let connection;
   let teacherId = req.user._id;
-  
-  
+
+
   try {
     connection = await getConnection();
     const [rows] = await connection.execute(
       'SELECT student_id, teacher_id, full_name, father_name, mother_name, email, phone_no, house_no, state, district, zip, gender, srn_no, pen_no, admission_no, class, section FROM students WHERE teacher_id = ?',
       [teacherId]
     );
-    req.studentList = {data: rows};
+    req.studentList = { data: rows };
     next()
   } catch (error) {
     console.error(error, "SEND JSON");
@@ -85,17 +85,17 @@ async function getStudentWithPhoto(req, res, next) {
 async function getAllStudentsByStudentId(req, res) {
   let connection;
   let studentId = req.params.id;
-  
+
   try {
     connection = await getConnection();
     const [rows] = await connection.execute(
       'SELECT student_id, teacher_id, full_name, father_name, mother_name, email, phone_no, house_no, state, district, zip, gender, srn_no, pen_no, admission_no, class, section FROM students WHERE student_id = ?',
       [studentId]
     );
-    return res.json({data: rows});
+    return res.json({ data: rows });
   } catch (error) {
     console.error(error, "SEND JSON");
-    res.json({data: "Fail to get students"})
+    res.json({ data: "Fail to get students" })
   } finally {
     if (connection) {
       await connection.end();
@@ -103,10 +103,10 @@ async function getAllStudentsByStudentId(req, res) {
   }
 }
 async function getStudentById_render(req, res, next) {
-  
+
   let connection;
   let studentId = req.params.id;
-  
+
   try {
     connection = await getConnection();
     const [rows] = await connection.execute(
@@ -120,16 +120,16 @@ async function getStudentById_render(req, res, next) {
       }
       return student;
     });
-     
+
     // console.log({data:students});
-    
-    
-    req.onestudent = {data:students}
-    next()    
+
+
+    req.onestudent = { data: students }
+    next()
   } catch (error) {
     console.error(error, "SEND JSON");
     req.onestudent = null
-    next() 
+    next()
   } finally {
     if (connection) {
       await connection.end();
@@ -156,13 +156,13 @@ async function insertStudent(req, res) {
     school_class,
     section
   } = req.body;
-  
+
   // Assign default value to userPhoto if not provided
   const userPhoto = req.file ? req.file.buffer : null;
 
   // Check if req.user.id is available
-  const teacherId = req.user._id ;
-  
+  const teacherId = req.user._id;
+
 
   // Ensure all required fields are defined
   if (!teacherId || !name || !father_name || !mother_name || !email || !password || !phoneNo || !houseNo || !state || !district || !zip || !gender || !srn_no || !pen_no || !admission_no || !school_class || !section) {
@@ -200,9 +200,9 @@ async function insertStudent(req, res) {
 async function deleteStudent(req, res) {
   // Check if req.user.id is available
   const studentId = req.params.id;
-  
+
   // Ensure all required fields are defined
-  if (!studentId ) {
+  if (!studentId) {
     return res.status(400).json({ message: 'Student ID required' });
   }
 
@@ -211,15 +211,15 @@ async function deleteStudent(req, res) {
     connection = await getConnection();
 
     try {
-      await connection.execute(`DELETE from studentDocument where student_id = ?`,[studentId,]);
+      await connection.execute(`DELETE from studentDocument where student_id = ?`, [studentId,]);
     } catch (error) {
       console.log("studentDocument", error);
     }
 
     // Insert the new student into the database
-    const [result] = await connection.execute(`DELETE from students where student_id = ?`,[studentId,]);
-    
-    res.status(200).json({ message: 'Student Deleted successfully', studentId: result});
+    const [result] = await connection.execute(`DELETE from students where student_id = ?`, [studentId,]);
+
+    res.status(200).json({ message: 'Student Deleted successfully', studentId: result });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.sqlMessage });
@@ -232,9 +232,9 @@ async function deleteStudent(req, res) {
 async function deletePDF(req, res) {
   // Check if req.user.id is available
   const studentId = req.params.id;
-  
+
   // Ensure all required fields are defined
-  if (!studentId ) {
+  if (!studentId) {
     return res.status(400).json({ message: 'Student ID required' });
   }
 
@@ -242,9 +242,9 @@ async function deletePDF(req, res) {
   try {
     connection = await getConnection();
 
-    await connection.execute(`DELETE from studentDocument where student_id = ?`,[studentId,]);
-    
-    res.status(201).json({ message: 'PDF Deleted successfully', studentId: result});
+    await connection.execute(`DELETE from studentDocument where student_id = ?`, [studentId,]);
+
+    res.status(201).json({ message: 'PDF Deleted successfully', studentId: result });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.sqlMessage });
@@ -257,7 +257,7 @@ async function deletePDF(req, res) {
 
 
 async function teacherSignup(req, res) {
-  const {firstName, lastName, email, password} = req.body;
+  const { firstName, lastName, email, password } = req.body;
   let connection;
   try {
     connection = await getConnection();
@@ -266,10 +266,10 @@ async function teacherSignup(req, res) {
       'INSERT INTO teacher (first_name, last_name, email, password) VALUES (?, ?, ?, ?)',
       [firstName, lastName, email, hashedPassword]
     );
-    res.redirect("/login") ; // Return the new teacher's ID
+    res.redirect("/login"); // Return the new teacher's ID
   } catch (error) {
     // console.error(error);
-    res.json({status: error.sqlMessage});
+    res.json({ status: error.sqlMessage });
   } finally {
     if (connection) {
       await connection.end();
@@ -278,7 +278,7 @@ async function teacherSignup(req, res) {
 }
 
 async function teacherLogin(req, res) {
-  let {email, password} = req.body;
+  let { email, password } = req.body;
   let connection;
   try {
     connection = await getConnection();
@@ -287,12 +287,12 @@ async function teacherLogin(req, res) {
       [email]
     );
     if (rows.length === 0) {
-      return res.json({status:'Invalid email'});
+      return res.json({ status: 'Invalid email' });
     }
     const teacher = rows[0];
     const passwordMatch = await bcrypt.compare(password, teacher.password);
     if (!passwordMatch) {
-      return res.json({status:'Invalid email'});
+      return res.json({ status: 'Invalid email' });
     }
     // res.removeHeader(Authorization)
     const payload = {
@@ -309,10 +309,10 @@ async function teacherLogin(req, res) {
       sameSite: 'Strict'
     });
     res.redirect("/profile")
-    
-    
+
+
   } catch (error) {
-    res.json({status: error.sqlMessage});
+    res.json({ status: error.sqlMessage });
   } finally {
     if (connection) {
       await connection.end();
@@ -326,7 +326,7 @@ async function updateStudentDetails(req, res) {
   let connection;
   let studentId = req.params.id;
   // console.log(studentId);
-  
+
   const {
     full_name,
     father_name,
@@ -347,10 +347,10 @@ async function updateStudentDetails(req, res) {
 
   // console.log("body", req.body);
 
-  const studentPhoto =  req.file ? req.file.buffer : null;
-  
+  const studentPhoto = req.file ? req.file.buffer : null;
+
   // Ensure all required fields are defined
-  if (!studentId || !full_name || !father_name || !mother_name || !email  || !phone_no || !house_no || !state || !district || !zip || !gender || !srn_no || !pen_no || !admission_no || !studentClass || !section) {
+  if (!studentId || !full_name || !father_name || !mother_name || !email || !phone_no || !house_no || !state || !district || !zip || !gender || !srn_no || !pen_no || !admission_no || !studentClass || !section) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
@@ -382,7 +382,7 @@ async function updateStudentDetails(req, res) {
           studentId
         ]
       );
-    }else{
+    } else {
       const [result] = await connection.execute(
         `UPDATE students 
          SET full_name = ?, father_name = ?, mother_name = ?, email = ?, phone_no = ?, house_no = ?, state = ?, district = ?, zip = ?, gender = ?, srn_no = ?, pen_no = ?, admission_no = ?, class = ?, section = ?
@@ -420,9 +420,9 @@ async function updateStudentDetails(req, res) {
 
 async function getPdfWithPDF(req, res) {
   let connection;
-  
+
   const student_id = req.params.student_id;
-  try{
+  try {
     connection = await getConnection();
 
     const sql = 'SELECT document FROM studentDocument WHERE student_id = ?';
@@ -434,11 +434,11 @@ async function getPdfWithPDF(req, res) {
     } else {
       res.status(404).send('Document not found');
     }
-  }catch (error){
+  } catch (error) {
     console.log(error);
-    
+
   }
-    
+
 }
 
 async function insertPDF(req, res) {
