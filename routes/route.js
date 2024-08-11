@@ -1,7 +1,7 @@
 const express = require('express')
-const {getAllStudentsByTeacherId, insertPDF, getPdfWithPDF, insertStudent, deletePDF, deleteStudent, updateStudentDetails, getAllStudentsByStudentId, teacherSignup, teacherLogin} = require('../components/studentapi');
+const { getAllStudentsByTeacherId, insertPDF, getPdfWithPDF, insertStudent, deletePDF, deleteStudent, updateStudentDetails, getAllStudentsByStudentId, teacherSignup, teacherLogin } = require('../components/studentapi');
 const checkAuth = require('../services/checkauth');
-const {create_student_excel} = require("../components/create_excel_file")
+const { create_student_excel } = require("../components/create_excel_file")
 // const {removeBg} = require('../services/removebg');
 const router = express.Router()
 const multer = require('multer');
@@ -41,17 +41,17 @@ router.delete('/api/student/:id', (req, res) => {
 router.post('/signup', teacherSignup)
 router.post('/login', teacherLogin)
 
-router.get("/login", (req, res)=>{
+router.get("/login", (req, res) => {
   const token = req.cookies.token;
-  if (!token){
+  if (!token) {
     res.render("login")
   }
-  else{
+  else {
     res.redirect("/profile")
   }
 })
 router.get("/logout", logoutUser)
-router.get("/signup", (req, res)=>{
+router.get("/signup", (req, res) => {
   res.render("signup")
 })
 
