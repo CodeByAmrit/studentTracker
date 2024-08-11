@@ -1,6 +1,5 @@
-
-const {getConnection} = require("../models/getConnection")
-const xlsx = require('xlsx');
+const { getConnection } = require("../models/getConnection");
+const ExcelJS = require('exceljs');
 const fs = require('fs');
 const path = require('path');
 
@@ -18,13 +17,38 @@ async function create_student_excel(req, res) {
         }
 
         // Create a new workbook and add a worksheet
-        const wb = xlsx.utils.book_new();
-        const ws = xlsx.utils.json_to_sheet(rows);
-        xlsx.utils.book_append_sheet(wb, ws, 'Students');
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Students');
+
+        // Define columns for the worksheet
+        worksheet.columns = [
+            { header: 'Student ID', key: 'student_id', width: 15 },
+            { header: 'Teacher ID', key: 'teacher_id', width: 15 },
+            { header: 'Full Name', key: 'full_name', width: 30 },
+            { header: 'Father Name', key: 'father_name', width: 30 },
+            { header: 'Mother Name', key: 'mother_name', width: 30 },
+            { header: 'Email', key: 'email', width: 30 },
+            { header: 'Phone No', key: 'phone_no', width: 15 },
+            { header: 'House No', key: 'house_no', width: 15 },
+            { header: 'State', key: 'state', width: 20 },
+            { header: 'District', key: 'district', width: 20 },
+            { header: 'Zip', key: 'zip', width: 10 },
+            { header: 'Gender', key: 'gender', width: 10 },
+            { header: 'SRN No', key: 'srn_no', width: 20 },
+            { header: 'PEN No', key: 'pen_no', width: 20 },
+            { header: 'Admission No', key: 'admission_no', width: 20 },
+            { header: 'Class', key: 'class', width: 10 },
+            { header: 'Section', key: 'section', width: 10 }
+        ];
+
+        // Add rows to the worksheet
+        rows.forEach(row => {
+            worksheet.addRow(row);
+        });
 
         // Write to a file in the server's filesystem
         const filePath = path.join(__dirname, 'students.xlsx');
-        xlsx.writeFile(wb, filePath);
+        await workbook.xlsx.writeFile(filePath);
 
         // Send the file to the client
         res.download(filePath, 'students.xlsx', (err) => {
@@ -50,4 +74,4 @@ async function create_student_excel(req, res) {
     }
 }
 
-module.exports  = {create_student_excel}
+module.exports = { create_student_excel };

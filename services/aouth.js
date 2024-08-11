@@ -1,6 +1,8 @@
 const sessionIdToUserMap = new Map()
 const jwt = require('jsonwebtoken')
-const secret = 'Amrit@Amrit@Amrit@123'
+const dotenv = require('dotenv');
+dotenv.config()
+const chabi = process.env.jwt_token
 
 function setUser (user) {
   return jwt.sign(
@@ -10,14 +12,14 @@ function setUser (user) {
       first_name: user.first_name,
       last_name: user.last_name
     },
-    secret
+    chabi
   )
 }
 
 function getUser (token) {
   if (!token) return null
   try {
-    return jwt.verify(token, secret)
+    return jwt.verify(token, chabi)
   } catch (error) {
     return null
   }
