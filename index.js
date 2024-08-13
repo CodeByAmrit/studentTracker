@@ -28,10 +28,10 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'"],
-      styleSrc: ["'self'"],
+      styleSrc: ["'self'", "https://stackpath.bootstrapcdn.com", "https://cdnjs.cloudflare.com", "https://fonts.googleapis.com", "https://cdn.lineicons.com"],
       imgSrc: ["'self'", "data:"], // Allow base64 data URLs
       connectSrc: ["'self'"],
-      fontSrc: ["'self'"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.lineicons.com"],
       objectSrc: ["'none'"],
       frameSrc: ["'none'"]
     }
@@ -56,21 +56,28 @@ app.use(helmetCsp({
       "'unsafe-inline'",
       "https://stackpath.bootstrapcdn.com",
       "https://cdnjs.cloudflare.com",
-      "https://fonts.googleapis.com"
+      "https://fonts.googleapis.com",
+      "https://cdn.lineicons.com"
     ],
-    imgSrc: ["'self'", "data:", "https://maxcdn.bootstrapcdn.com", "https://cdn.lineicons.com/4.0/lineicons.css"],
+    imgSrc: [
+      "'self'",
+      "data:",
+      "https://maxcdn.bootstrapcdn.com"
+    ],
     connectSrc: ["'self'"],
     fontSrc: [
       "'self'",
       "https://fonts.gstatic.com",
       "https://cdnjs.cloudflare.com",
-      "https://maxcdn.bootstrapcdn.com"
+      "https://maxcdn.bootstrapcdn.com",
+      "https://cdn.lineicons.com"
     ],
     frameSrc: ["'none'"],
     objectSrc: ["'none'"],
     upgradeInsecureRequests: [],
   },
 }));
+
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())

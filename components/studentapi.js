@@ -282,6 +282,8 @@ async function teacherLogin(req, res) {
   let connection;
   try {
     connection = await getConnection();
+    console.log(`SELECT * FROM teacher WHERE email = ${email}`);
+
     const [rows] = await connection.execute(
       'SELECT * FROM teacher WHERE email = ?',
       [email]
@@ -292,7 +294,7 @@ async function teacherLogin(req, res) {
     const teacher = rows[0];
     const passwordMatch = await bcrypt.compare(password, teacher.password);
     if (!passwordMatch) {
-      return res.json({ status: 'Invalid email' });
+      return res.json({ status: 'Invalid Password' });
     }
     // res.removeHeader(Authorization)
     const payload = {

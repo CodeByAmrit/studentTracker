@@ -1,8 +1,31 @@
-const hamBurger = document.querySelector('.toggle-btn')
+const navBar = document.querySelector('.toggle-btn');
+const sidebar = document.querySelector('#sidebar');
 
-hamBurger.addEventListener('click', function () {
-  document.querySelector('#sidebar').classList.toggle('expand')
-})
+// Function to toggle and save the state
+function toggleSidebar() {
+  sidebar.classList.toggle('expand');
+
+  // Save the state in localStorage
+  if (sidebar.classList.contains('expand')) {
+    localStorage.setItem('sidebarState', 'expanded');
+  } else {
+    localStorage.setItem('sidebarState', 'collapsed');
+  }
+}
+
+// Add event listener for the toggle button
+navBar.addEventListener('click', toggleSidebar);
+
+// Restore the state on page load
+document.addEventListener('DOMContentLoaded', function () {
+  const sidebarState = localStorage.getItem('sidebarState');
+  if (sidebarState === 'expanded') {
+    sidebar.classList.add('expand');
+  } else {
+    sidebar.classList.remove('expand');
+  }
+});
+
 
 try {
   document
