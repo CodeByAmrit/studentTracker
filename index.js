@@ -3,12 +3,12 @@ const path = require('path');
 const router = require('./routes/route')
 const cookieParser = require('cookie-parser')
 const checkAuth = require('./services/checkauth');
-const { getAllStudent_to_Render, getStudentById_render, getStudentWithPhoto } = require('./components/studentapi');
+const { getAllStudent_to_Render, getStudentById_render, generateCertificate, getStudentWithPhoto } = require('./components/studentapi');
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const helmetCsp = require('helmet-csp');
-const port = process.env.PORT || 2020;
+const port = process.env.PORT || 3030;
 // const ip = 'localhost';
 
 const app = express();
@@ -122,6 +122,8 @@ app.get('/syllabus', checkAuth, (req, res, next) => {
 app.get('/register', checkAuth, (req, res, next) => {
   res.render('register')
 })
+
+app.get("/generate-certificate/:id", checkAuth, getStudentById_render, generateCertificate)
 
 // api CRUD operations
 

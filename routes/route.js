@@ -25,6 +25,8 @@ router.get('/document/:student_id', checkAuth, getPdfWithPDF);
 // create excel file student
 router.get("/get-excel-student", checkAuth, create_student_excel);
 
+// create cerificaet
+
 router.put('/api/student/:id', (req, res) => {
   res.json({ status: `/student/:id  ${req.params.id}` })
 })

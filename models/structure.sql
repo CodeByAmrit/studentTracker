@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS students (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     phone_no VARCHAR(15) NOT NULL,
-    house_no VARCHAR(10) NOT NULL,
+    house_no VARCHAR(100) NOT NULL,
     state VARCHAR(50) NOT NULL,
     district VARCHAR(50) NOT NULL,
     zip VARCHAR(10) NOT NULL,
@@ -44,6 +44,25 @@ CREATE TABLE IF NOT EXISTS studenttracker.studentDocument (
     document MEDIUMBLOB NOT NULL,
     upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+CREATE TABLE IF NOT EXISTS marks(
+    student_id INT UNSIGNED AUTO_INCREMENT,
+    english INTEGER NOT NULL,
+    hindi INTEGER NOT NULL,
+    mathematics INTEGER NOT NULL,
+    social_science INTEGER NOT NULL,
+    science INTEGER NOT NULL,
+    computer INTEGER NOT NULL,
+    drawing VARCHAR(50) NOT NULL,
+    gn INTEGER NOT NULL,
+    grandTotal INTEGER ,
+    percentage DECIMAL(10, 2),
+    rank VARCHAR(50),
+
+    PRIMARY KEY(student_id),
+    
+    FOREIGN KEY(student_id) REFERENCES students(student_id)
 );
 
 

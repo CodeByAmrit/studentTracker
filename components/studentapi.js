@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const { setUser } = require("../services/aouth")
 const { getConnection } = require('../models/getConnection');
+const { PDFDocument, rgb } = require('pdf-lib');
+const fs = require('fs');
 
 const saltRounds = 10;
 
@@ -102,6 +104,103 @@ async function getAllStudentsByStudentId(req, res) {
     }
   }
 }
+
+// Function to generate the certificate
+async function generateCertificate(req, res, next) {
+  let student = req.onestudent.data[0];
+
+
+
+  try {
+    // console.log(student);
+    // Load your PDF template
+    const templateBytes = fs.readFileSync('certificate_template.pdf');
+    const pdfDoc = await PDFDocument.load(templateBytes);
+
+    // Get the first page of the template
+    const page = pdfDoc.getPage(0);
+
+    // Set the student data in the appropriate positions on the PDF
+    page.drawText(student.full_name.toUpperCase(), {
+      x: 232,
+      y: 2728,
+      size: 33,
+      color: rgb(0, 0, 0),
+    });
+
+    page.drawText(`${student.class} & ${student.section}`, {
+      x: 1021,
+      y: 2728,
+      size: 33,
+      color: rgb(0, 0, 0),
+    });
+
+    page.drawText(`${student.father_name}`, {
+      x: 232,
+      y: 2590,
+      size: 33,
+      color: rgb(0, 0, 0),
+    });
+
+    page.drawText(`${student.mother_name}`, {
+      x: 1021,
+      y: 2590,
+      size: 33,
+      color: rgb(0, 0, 0),
+    });
+
+    page.drawText(`${student.rollNo}`, {
+      x: 232,
+      y: 2452,
+      size: 33,
+      color: rgb(0, 0, 0),
+    });
+    const today = new Date();
+
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = today.getFullYear();
+
+    const formattedDate = `${day}/${month}/${year}`;
+
+    page.drawText(`${formattedDate}`, {
+      x: 332,
+      y: 200,
+      size: 38,
+      color: rgb(0, 0, 0),
+    });
+
+    // Add more fields as required...
+
+    // Insert the photo if available
+    if (student.photo) {
+      const photoBytes = Buffer.from(student.photo, 'base64');
+      const photoImage = await pdfDoc.embedPng(photoBytes);
+      page.drawImage(photoImage, {
+        x: 1913,
+        y: 2390,
+        width: 354,
+        height: 450,
+      });
+    }
+
+    // Save the modified PDF to a buffer
+    const pdfBytes = await pdfDoc.save();
+
+    // Set the correct headers
+    res.setHeader('Content-Disposition', `inline; filename=certificate_${student.full_name}.pdf`);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Length', pdfBytes.length);
+
+    // Send the PDF file
+    res.send(Buffer.from(pdfBytes));
+  } catch (error) {
+    console.error('Error generating certificate:', error);
+    next(error);
+  }
+}
+
+
 async function getStudentById_render(req, res, next) {
 
   let connection;
@@ -498,5 +597,6 @@ module.exports = {
   insertStudent,
   deleteStudent,
   getStudentById_render,
-  deletePDF
+  deletePDF,
+  generateCertificate
 }

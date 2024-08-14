@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Certificate</title>
+</head>
+
+<body>
+    <h1>Student Certificate</h1>
+    <div id="pdfContainer"></div>
+    <input type="text" id="studentID">
+    <button type="button" id="btn1">Create Certificate</button>
+    <script>
+
+        async function displayCertificate(studentId) {
+            try {
+                // Fetch the PDF from the server
+                const response = await fetch(`/generate-certificate/${studentId}`, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the certificate');
+                }
+
+                // Convert the response into a Blob
+                const pdfBlob = await response.blob();
+
+                // Create a URL for the Blob and set it as the source of an <iframe> to display the PDF
+                const pdfUrl = URL.createObjectURL(pdfBlob);
+
+                // Option 1: Display in an <iframe>
+                // const iframe = document.createElement('iframe');
+                // iframe.src = pdfUrl;
+                // iframe.width = '100%';
+                // iframe.height = '600px';
+                // document.getElementById('pdfContainer').appendChild(iframe)
+                // Option 2: Open in a new tab (optional)
+                window.open(pdfUrl, '_blank');
+
+            } catch (error) {
+                console.error('Error displaying certificate:', error);
+            }
+        }
+
+        document.getElementById("btn1").addEventListener("click", (e) => {
+            let sid = document.getElementById("studentID").value;
+            displayCertificate(sid);
+        })
+
+        // Example usage: Display the certificate for student with ID 7
+        // displayCertificate(7);
+
+    </script>
+</body>
+
+</html>
