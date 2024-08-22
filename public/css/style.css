@@ -189,6 +189,10 @@ input[type="number"] {
     #mobileNav {
         display: block;
     }
+
+    #serachGroup {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 500px) {

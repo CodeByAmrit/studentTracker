@@ -57,6 +57,9 @@ router.get("/signup", (req, res) => {
   res.render("signup")
 })
 
+router.get("/account", (req, res) => {
+  res.render('account')
+})
 
 function logoutUser(req, res) {
   res.clearCookie("token").redirect("/login")
