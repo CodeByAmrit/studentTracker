@@ -381,7 +381,7 @@ async function teacherLogin(req, res) {
   let connection;
   try {
     connection = await getConnection();
-    console.log(`SELECT * FROM teacher WHERE email = ${email}`);
+    // console.log(`SELECT * FROM teacher WHERE email = ${email}`);
 
     const [rows] = await connection.execute(
       'SELECT * FROM teacher WHERE email = ?',
