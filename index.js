@@ -137,6 +137,11 @@ app.get("/logout", router);
 // Remove background
 app.post('/remove-bg', router);
 
+// custom 404
+app.use((req, res, next) => {
+  res.status(404).render("custom404")
+})
+
 app.listen(port, err => {
   if (err) {
     console.error('Error starting server:', err);
